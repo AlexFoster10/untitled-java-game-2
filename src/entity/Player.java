@@ -46,32 +46,36 @@ public class Player extends Entity{
     }
     public void update(){
 
-        if(keyH.upPressed == true){
-            direction = "up";
-            y -= speed;
-        }
-        if(keyH.downPressed == true){
-            direction = "down";
-            y += speed;
-        }
-        if(keyH.leftPressed == true){
-            direction = "left";
-            x -= speed;
-        }
-        if(keyH.rightPressed == true){
-            direction = "right";
-            x += speed;
-        }
+        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true){
 
-        spriteCounter++;
-        if(spriteCounter>12){
-            if(spriteNum==1){
-                spriteNum=2;
+            if(keyH.upPressed == true){
+                direction = "up";
+                y -= speed;
             }
-            else if(spriteNum==2){
-                spriteNum=1;
+            if(keyH.downPressed == true){
+                direction = "down";
+                y += speed;
             }
-            spriteCounter=0;
+            if(keyH.leftPressed == true){
+                direction = "left";
+                x -= speed;
+            }
+            if(keyH.rightPressed == true){
+                direction = "right";
+                x += speed;
+            }
+
+            spriteCounter++;
+            if(spriteCounter>12){
+                if(spriteNum==1){
+                    spriteNum=2;
+                }
+                else if(spriteNum==2){
+                    spriteNum=1;
+                }
+                spriteCounter=0;
+            }
+
         }
 
     }
