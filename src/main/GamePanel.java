@@ -34,10 +34,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         while(gameThread != null){
 
-//            System.out.println("The game loop is running");
-//            Here we should add game ticks i.e. time progression
-//            update info/draw screen with updated info
+            //update info i.e. player stats
             update();
+            //draw screen each tick i.e. draw screen
             repaint();
         }
     }
