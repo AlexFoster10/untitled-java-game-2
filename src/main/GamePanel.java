@@ -16,6 +16,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //FPS
     int FPS = 60;
+
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; //repeats process again and again; clock
 
@@ -46,8 +47,6 @@ public class GamePanel extends JPanel implements Runnable {
         int drawCount= 0;
         while(gameThread != null){
 
-            long CurrentTime = System.nanoTime();
-            //System.out.println("Current System Time: " + CurrentTime);
             //update info i.e. player stats
             update();
             //draw screen each tick i.e. draw screen
