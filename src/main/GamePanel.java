@@ -18,7 +18,7 @@ public class GamePanel extends JPanel {
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); //sets panel size
         this.setBackground(Color.black);
-        this.setDoubleBuffered(true); // does drawing offscreen
+        this.setDoubleBuffered(true); //does drawing offscreen
 
     }
 
