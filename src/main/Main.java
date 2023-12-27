@@ -14,7 +14,7 @@ class Main {
         window.pack(); //sets window prefs to those specified in sub comps i.e. GamePanel
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-
+        gamePanel.startGameThread();
 
     }
 }
