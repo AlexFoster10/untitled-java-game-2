@@ -40,6 +40,9 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {//when we start the gameThread, it will automatically call this run method
 
+        double drawInterval = 1000000000/FPS; //60th of a second
+        double nextDrawTime = System.nanoTime()+drawInterval; //preps next frame
+
         while(gameThread != null){
 
             long CurrentTime = System.nanoTime();
@@ -48,6 +51,21 @@ public class GamePanel extends JPanel implements Runnable {
             update();
             //draw screen each tick i.e. draw screen
             repaint();
+
+            try {
+                double remainingTime = nextDrawTime-System.nanoTime(); //time till next frame
+                remainingTime = remainingTime/1000000; //converts nano secs to mil secs
+
+                if(remainingTime < 0){ //safety thing
+                    remainingTime = 0;
+                }
+
+                Thread.sleep((long) remainingTime); //sleep for time till next frame
+
+                nextDrawTime += drawInterval; //gets next frame time
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
