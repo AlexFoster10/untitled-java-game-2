@@ -18,17 +18,23 @@ public class GamePanel extends JPanel implements Runnable {
 
     //gamePanel constructor
     public GamePanel(){
+
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); //sets panel size
         this.setBackground(Color.black);
         this.setDoubleBuffered(true); //does drawing offscreen
     }
 
     public void startGameThread(){
+
         gameThread = new Thread(this);
         gameThread.start();
     }
     @Override
-    public void run() { //when we start the gameThread, it will automatically call this run method
+    public void run() {//when we start the gameThread, it will automatically call this run method
 
+        while(gameThread != null){
+
+            System.out.println("The game loop is running");
+        }
     }
 }
