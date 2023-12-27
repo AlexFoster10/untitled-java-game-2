@@ -38,44 +38,76 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread = new Thread(this);
         gameThread.start();
     }
+//    @Override
+//    public void run() {//when we start the gameThread, it will automatically call this run method
+//
+//        double drawInterval = 1000000000/FPS; //60th of a second
+//        double nextDrawTime = System.nanoTime()+drawInterval; //preps next frame
+//        long timer = 0;
+//        int drawCount= 0;
+//        while(gameThread != null){
+//
+//            //update info i.e. player stats
+//            update();
+//            //draw screen each tick i.e. draw screen
+//            repaint();
+//
+//            try {
+//                double remainingTime = nextDrawTime-System.nanoTime(); //time till next frame
+//                timer += remainingTime;
+//                remainingTime = remainingTime/1000000; //converts nano secs to mil secs
+//
+//                if(remainingTime < 0){ //safety thing
+//                    remainingTime = 0;
+//                }
+//
+//                Thread.sleep((long) remainingTime); //sleep for time till next frame
+//
+//                nextDrawTime += drawInterval; //gets next frame time
+//                drawCount++;
+//
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//            if(timer >= 1000000000){
+//                System.out.println("FPS: "+drawCount);
+//                drawCount = 0;
+//                timer = 0;
+//            }
+//        }
+//    }
     @Override
     public void run() {//when we start the gameThread, it will automatically call this run method
 
-        double drawInterval = 1000000000/FPS; //60th of a second
-        double nextDrawTime = System.nanoTime()+drawInterval; //preps next frame
+        double drawInterval = 1000000000 / FPS; //60th of a second
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
         long timer = 0;
-        int drawCount= 0;
-        while(gameThread != null){
+        int drawCount = 0;
+        while (gameThread != null) {
 
-            //update info i.e. player stats
-            update();
-            //draw screen each tick i.e. draw screen
-            repaint();
+            currentTime = System.nanoTime();
 
-            try {
-                double remainingTime = nextDrawTime-System.nanoTime(); //time till next frame
-                timer += remainingTime;
-                remainingTime = remainingTime/1000000; //converts nano secs to mil secs
+            delta += (currentTime - lastTime) / drawInterval; //elapsed time divided by 60
+            timer += currentTime -lastTime; //ads elapsed time to timer
+            lastTime = currentTime;
 
-                if(remainingTime < 0){ //safety thing
-                    remainingTime = 0;
-                }
-
-                Thread.sleep((long) remainingTime); //sleep for time till next frame
-
-                nextDrawTime += drawInterval; //gets next frame time
+            if(delta>=1){
+                update();
+                repaint();
+                delta--;
                 drawCount++;
-
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
+
             if(timer >= 1000000000){
                 System.out.println("FPS: "+drawCount);
-                drawCount = 0;
                 timer = 0;
+                drawCount = 0;
             }
         }
     }
+
 
     public void update(){
 
